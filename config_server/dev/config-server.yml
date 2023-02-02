@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-server
+server:
+  port: 8886
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: user
+    password: password
+  profiles:
+    active: native
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      server:
+        native:
+          search-locations: /home/spring-cloud/ms-config-properties/{application}/{profile}
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
